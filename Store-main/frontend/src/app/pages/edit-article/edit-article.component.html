@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card">
+    <div *ngIf="article" class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="avatar-container">
+            <img [src]="article.picture" alt="avatar" class="rounded-circle img-fluid">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <h4 class="card-title">Edit Article</h4>
+          <form [formGroup]="updateArticleForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" formControlName="name" id="name" placeholder="Name">
+              <div *ngIf="name.invalid && name.touched" class="invalid-feedback">
+                <span> Please provide a valid name.</span> 
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" formControlName="price" id="price" min="1" max="10000" placeholder="Price">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" formControlName="quantity" id="quantity" min="0" max="10000" placeholder="Quantity">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" formControlName="description" id="description" rows="3" placeholder="Description"></textarea>
+              <div *ngIf="description.invalid && description.touched" class="invalid-feedback">
+                <span> Please provide a valid description.</span> 
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="profile-picture">
+                <label for="profile-picture">Article Picture</label>
+                <input type="file" id="profile-picture" #imageInput accept="image/*" (change)="onPictureChanged(imageInput)">
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-primary" type="button" (click)="SaveChanges()">Save Article</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

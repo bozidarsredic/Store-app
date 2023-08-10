@@ -1,0 +1,44 @@
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Order Id</th>
+        <th >Address</th>
+        <th >Comment</th>
+        <th >Status</th>
+        <th *ngIf="userRole == 'Customer' || userRole == 'Salesman'" >Time unitl delivery</th>
+        <th >Article Name</th>
+        <th >Article Price</th>
+        <th >Quantity</th>
+        <th >Delivery Price </th>
+        <th >Total Price</th>
+        <th *ngIf="userRole == 'Customer'">Cancel order</th>
+      </tr>
+    </thead>
+    <tbody style="background-color: white;">
+      <ng-container  *ngFor="let order of active">
+        <tr >
+          <!-- <td colspan="3" style="text-align: center;"> -->
+            <td>{{order.id}}</td>
+            <td>{{order.address}}</td>
+            <td>{{order.comment}}</td>
+            <td>{{order.status}}</td>
+            <td *ngIf="userRole == 'Customer' || userRole == 'Salesman'">
+              <countdown [config]="order.configCountDown"></countdown>
+            </td>
+            <td>{{order.item.articleName}}</td>
+            <td>{{order.item.quantity !== 0 ? (order.price - 20) / order.item.quantity : 'N/A'}}</td>
+            <td>{{order.item.quantity}}</td>
+            <td>20</td>
+            <td>{{order.price}}</td>
+          <!-- </td> -->
+            <td *ngIf="userRole == 'Customer'"><ng-container>
+              <button class="btn btn-danger" (click)="Cancel(order.id)">Cancel</button>
+              </ng-container>
+              <ng-container >
+              </ng-container>
+            </td>
+        </tr>
+      </ng-container>
+    </tbody>  
+  </table>
